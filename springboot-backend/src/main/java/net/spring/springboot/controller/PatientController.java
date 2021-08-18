@@ -40,9 +40,9 @@ public class PatientController {
 	@GetMapping("/patients/otp")
 	public String getOTP() {
 		Random rnd = new Random();
-	    int number = rnd.nextInt(999999);
+	    int num = rnd.nextInt(999999);
 
-	    return String.format("%06d", number); 
+	    return String.format("%06d", num); 
 	}
 
 }
