@@ -17,4 +17,4 @@ class PatientService extends Component{
 }
 
 
-export default new PatientService();
+export default new PatientService(); 

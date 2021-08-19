@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PatientService from '../services/PatientService.js'
-
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 class Login extends Component {
     constructor(props) {
@@ -25,10 +26,6 @@ class Login extends Component {
         this.setState({ password: e.target.value });
     }
 
-    
-
-
-
     save = (e) => {
         e.preventDefault();
         var email = document.getElementById('email');
@@ -41,7 +38,7 @@ class Login extends Component {
                 email.value = ""
                 alert("Login successful");
                 this.props.history.push({
-                    pathname: '/Details',
+                    pathname: '/Landing',
                     state: {
                         fullName: res.data.fullName,
                         emailId: res.data.emailId,
@@ -62,27 +59,39 @@ class Login extends Component {
     }
 
     render() {
-        return (
-            <form>
-                    <h3>Sign In</h3>
+        return (<>
+                <div>
+                    <Header />
+                </div>
+                <div className="auth-wrapper">
+                    <div className="auth-inner">
+                        <form>
+                        <h3>Sign In</h3>
 
-                    <div className="form-group">
-                        <label>Email address</label>
-                        <input id="email" type="email" className="form-control" placeholder="Enter email" 
-                        value={this.state.emailId} onChange={this.changeEmailHandler}
-                        />
+                        <div className="form-group">
+                            <label>Email address</label>
+                            <input id="email" type="email" className="form-control" placeholder="Enter email" 
+                            value={this.state.emailId} onChange={this.changeEmailHandler}
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input id="password" type="password" className="form-control" placeholder="Enter password" 
+                            value={this.state.password} onChange={this.changePdHandler}
+                            />
+                        </div>
+
+                        <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:120 }} onClick = {this.save}>Login</button>
+                        
+                        </form>
                     </div>
-
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input id="password" type="password" className="form-control" placeholder="Enter password" 
-                        value={this.state.password} onChange={this.changePdHandler}
-                        />
-                    </div>
-
-                    <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:120 }} onClick = {this.save}>Login</button>
-                    
-            </form>
+                </div>
+                <div>
+                    <Footer />
+                </div>
+                </>
+                
         )
     }
 }

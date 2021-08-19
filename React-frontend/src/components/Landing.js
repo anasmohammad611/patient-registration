@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Link } from "react-router-dom";
 
-class Details extends Component {
+class Landing extends Component { 
     render() {
         return (
-            <div >
-                <h2 className="text-center">Your Data</h2>
+            <>
+            <div>
+                <header className='header'>
+                    <h3>
+                        Patient Details
+                    </h3>
+                    
+                    <div>
+                        <ul >
+                            <li >
+                                <Link className="nav-link" to={"/"} ><h5>Log Out</h5></Link>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </header>
+            </div>
+            <div className='container'>
+                <h2 className="text-center"></h2>
                     <div className="row">
                         <table className="table table-striped table-bordered">
                             <thead>
@@ -26,8 +44,14 @@ class Details extends Component {
                         </table>
                     </div>
             </div>
+            <div>
+                <footer style={{ background: "black", padding: "0.5em", position: "fixed", bottom: "0", color: "white", width: "100%", textAlign: "center"}} >
+                    Copyright © 2019. Svasth Life Pvt Ltd. All rights reserved
+                </footer>
+            </div>
+        </>
         )
     }
 }
 
-export default Details
+export default Landing
