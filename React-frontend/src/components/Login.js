@@ -27,13 +27,14 @@ class Login extends Component {
     }
 
     save = (e) => {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         e.preventDefault();
         var email = document.getElementById('email');
         var password = document.getElementById('password');
         console.log(email,password);
         PatientService.getPatientByEmail(this.state.emailId).then(res => {
             console.log(res.data);
-            if(res.data.password === password.value) {
+            if(re.test(this.state.emailId) && res.data.password === password.value) {
                 password.value = ""
                 email.value = ""
                 alert("Login successful");
@@ -50,7 +51,7 @@ class Login extends Component {
             else {
                 password.value = ""
                 email.value = ""
-                alert("Password is incorrect");
+                alert("email is incorrect or password doesn't match");
             }
         })
         .catch(function (error) {
@@ -82,7 +83,9 @@ class Login extends Component {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:120 }} onClick = {this.save}>Login</button>
+                        <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:120 }} onClick = {this.save}
+                            disabled={this.state.emailId.length<1} disabled={this.state.password.length<1}
+                        >Login</button>
                         
                         </form>
                     </div>

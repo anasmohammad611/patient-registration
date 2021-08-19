@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PatientService from '../services/PatientService.js'
 import Header from './Header.js'
-import Footer from './Footer.js';
+import Footer from './Footer.js'
 
 
 class Signup extends Component {
+    
+
     constructor(props) {
         super(props)
 
@@ -20,7 +22,9 @@ class Signup extends Component {
 
     save = (e) => {
         e.preventDefault();
-        if(this.state.password === this.state.pdc) {
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if(re.test(this.state.emailId) && this.state.password === this.state.pdc) {
             let patient = {
                 fullName: this.state.fullName,
                 emailId: this.state.emailId,
@@ -37,7 +41,7 @@ class Signup extends Component {
             alert("patient registered successfully !!!")
         }
         else {
-            alert("Password not same. Check your password and try again.")
+            alert("email is incorrect or password doesn't match")
         }
     }
     
@@ -64,7 +68,6 @@ class Signup extends Component {
     changePdcHandler = (e) => {
         this.setState({ pdc: e.target.value });
     }
-
     
     render() {
         return (
@@ -79,7 +82,7 @@ class Signup extends Component {
 
                         <div className="form-group">
                             <label>Full name</label>
-                            <input type="text" className="form-control" placeholder="Full name" 
+                            <input type="text" className="form-control" placeholder="Full name" maxLength="10"
                             value={this.state.fullName} onChange={this.changeFullNameHandler}
                             />
                         </div>
@@ -120,7 +123,12 @@ class Signup extends Component {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:120 }} onClick={ this.save }>Sign Up</button>
+                        <button type="submit" className="btn btn-primary btn-block" 
+                            style= {{ marginLeft:120 }} 
+                            onClick={ this.save } 
+                            disabled={this.state.emailId.length<1} disabled={this.state.password.length<1} >
+                                Sign Up
+                        </button>
                         
                     </form>
                     </div>
