@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 class Landing extends Component { 
     render() {
@@ -14,7 +14,7 @@ class Landing extends Component {
                     <div>
                         <ul >
                             <li >
-                                <Link className="nav-link" to={"/"} ><h5>Log Out</h5></Link>
+                                <Link className="nav-link" to={"/"} ><h5>Log out</h5></Link>
                             </li>
                         </ul>
                     </div>
