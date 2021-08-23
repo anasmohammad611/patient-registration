@@ -110,7 +110,7 @@ class Signup extends Component {
                             />
                             <span id="error2"></span>
                         </div>
-
+                        <br />
                         <button type="submit" className="btn btn-primary btn-block" name="button"
                             style= {{ marginLeft:120 }} 
                             onClick={ this.save } 

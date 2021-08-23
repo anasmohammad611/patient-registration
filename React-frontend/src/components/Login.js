@@ -39,7 +39,6 @@ class Login extends Component {
             if(re.test(this.state.emailId) && res.data.password === password.value) {
                 password.value = ""
                 email.value = ""
-                alert("Login successful");
                 this.props.history.push({
                     pathname: '/Landing',
                     state: {
@@ -51,6 +50,8 @@ class Login extends Component {
                 });
             }
             else {
+                password.value = ""
+                email.value = ""
                 e1.textContent = "check your email";
                 e1.style.color = "red";
                 e2.textContent = "check your password";
