@@ -70,7 +70,8 @@ class Otp extends Component {
     }
 
     render() {
-        return (<>
+        return (
+            <>
                 <div>
                     <Header />
                 </div>
@@ -106,7 +107,7 @@ class Otp extends Component {
                 <div>
                     <Footer />
                 </div>
-                </>
+            </>
                 
         )
     }
