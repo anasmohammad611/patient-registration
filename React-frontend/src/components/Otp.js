@@ -41,14 +41,13 @@ class Otp extends Component {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         e.preventDefault();
         var email = document.getElementById('email');
-        
+        var e1 = document.getElementById("error1");
         
         PatientService.getPatientByEmail(this.state.emailId).then(res => {
             console.log(res.data);
             
             if(re.test(this.state.emailId)) {
                 email.value = ""
-                alert("Login successful");
                 this.props.history.push({
                     pathname: '/Landing',
                     state: {
@@ -61,11 +60,14 @@ class Otp extends Component {
             }
             else {
                 email.value = ""
-                alert("email is incorrect or otp doesn't match");
+                e1.textContent = "check your email";
+                e1.style.color = "red";
             }
         })
         .catch(function (error) {
-            alert('incorrect details');
+            email.value = ""
+            e1.textContent = "check your email";
+            e1.style.color = "red";
         });
     }
 
@@ -86,7 +88,7 @@ class Otp extends Component {
                             value={this.state.emailId} onChange={this.changeEmailHandler}
                             />
                         </div>
-
+                        <span id="error"></span>
                         <div className="form-group">
                             <label>OTP</label>
                             <input id="otp" className="form-control"
