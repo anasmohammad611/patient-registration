@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import PatientService from '../services/PatientService.js'
 import Header from './Header.js';
 import Footer from './Footer.js';
+import axios from 'axios';
 
-class Login extends Component {
+
+class Otp extends Component {
     constructor(props) {
         super(props);
 
@@ -12,7 +14,8 @@ class Login extends Component {
             emailId: "",
             bg: "",
             phoneNumber: "",
-            password: ""
+            password: "",
+            otp: "",
         }
     }
     
@@ -22,20 +25,28 @@ class Login extends Component {
         this.setState({ emailId: e.target.value });
     }
 
-    changePdHandler = (e) => {
-        this.setState({ password: e.target.value });
+    get = (e) => {
+        e.preventDefault();
+        var otp = document.getElementById("otp");
+        axios.get("http://localhost:8080/api/v1/patients/otp").then(res => {
+            otp.value = res.data;
+            this.setState({ otp: res.data });
+        })
+        .catch(function (err) {
+        });
     }
+
 
     save = (e) => {
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         e.preventDefault();
         var email = document.getElementById('email');
-        var password = document.getElementById('password');
-        console.log(email,password);
+        
+        
         PatientService.getPatientByEmail(this.state.emailId).then(res => {
             console.log(res.data);
-            if(re.test(this.state.emailId) && res.data.password === password.value) {
-                password.value = ""
+            
+            if(re.test(this.state.emailId)) {
                 email.value = ""
                 alert("Login successful");
                 this.props.history.push({
@@ -49,21 +60,13 @@ class Login extends Component {
                 });
             }
             else {
-                password.value = ""
                 email.value = ""
-                alert("email is incorrect or password doesn't match");
+                alert("email is incorrect or otp doesn't match");
             }
         })
         .catch(function (error) {
             alert('incorrect details');
         });
-    }
-
-
-    otp = (e) => {
-        e.preventDefault();
-        this.props.history.push('/OtpLogin');
-        
     }
 
     render() {
@@ -84,20 +87,18 @@ class Login extends Component {
                         </div>
 
                         <div className="form-group">
-                            <label>Password</label>
-                            <input id="password" type="password" className="form-control" placeholder="Enter password" 
-                            value={this.state.password} onChange={this.changePdHandler}
+                            <label>OTP</label>
+                            <input id="otp" className="form-control"
+                            placeholder="Press get otp to autofill otp" value = {this.state.otp}
                             />
                         </div>
                         
                         <br />
+                        <button onClick={this.get} disabled={this.state.emailId.length<1}>get otp</button>
                         <div>
                         <button type="submit" className="btn btn-primary btn-block" style= {{ marginLeft:150 }} onClick = {this.save}
-                                disabled={this.state.emailId.length<1} disabled={this.state.password.length<1}
-                            >Login</button>
-                            <br />
-                            <br />
-                            <button type="submit" className="btn btn-primary" onClick = {this.otp}>*login with otp</button>
+                                disabled={this.state.emailId.length<1} disabled={this.state.otp.length<6}
+                            >Submit</button>
                         </div>
                         </form>
                     </div>
@@ -111,4 +112,4 @@ class Login extends Component {
     }
 }
 
-export default Login
+export default Otp

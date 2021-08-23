@@ -14,6 +14,10 @@ class PatientService extends Component{
     getPatientByEmail(email) {
         return axios.get("http://localhost:8080/api/v1/patients/"+email);
     }
+
+    getPatientOtp() {
+        return axios.get("http://localhost:8080/api/v1/patients/otp");
+    }
 }
 
 

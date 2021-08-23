@@ -9,8 +9,14 @@ const Home = () => {
                 <Header />
             </div>
             <div className="container">
-                <div className="home">
-                    healthi.in
+                <div className="home" style={{ textDecorationColor: "lightcoral" }}>
+                    Welcome to, <a href="http://healthi.in/">healthi.in</a> 
+                    <p>Building A Seamless Healthcare Experience</p>
+                </div>
+                <div className="para">
+                    While health needs and awareness have grown exponentially, navigating our disjointed healthcare system often overwhelms everyone involved. 
+                    No wonder it's tough to make smart health decisions. But all that changes with healthi! 
+                    With simple and intelligent health & wellness solutions, we connect the dots – so users have the best health outcomes.
                 </div>
             </div>
             <div>

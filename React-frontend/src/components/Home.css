@@ -1,6 +1,11 @@
 .home {
-    display: block;
-    text-align: center;
-    padding-top: 15%;
-    font-size: 1000%;
+    display: flexbox;
+    text-align: left;
+    padding-top: 5%;
+    font-size: 300%;
+}
+
+.para {
+    padding-top: 2%;
+    font-size: 150%;
 }
