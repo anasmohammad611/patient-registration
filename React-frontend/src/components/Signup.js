@@ -22,6 +22,8 @@ class Signup extends Component {
 
     save = (e) => {
         e.preventDefault();
+        var e1 = document.getElementById("error1");
+        var e2 = document.getElementById("error2");
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if(re.test(this.state.emailId) && this.state.password === this.state.pdc) {
@@ -38,35 +40,19 @@ class Signup extends Component {
             PatientService.createPatient(patient).then(res => {
                 this.props.history.push('/sign-in');
             });
-            alert("patient registered successfully !!!")
         }
         else {
-            alert("email is incorrect or password doesn't match")
+            e1.textContent = "check your email";
+            e1.style.color = "red";
+            e2.textContent = "check your password";
+            e2.style.color = "red";
         }
     }
-    
-    changeFullNameHandler = (e) => {
-        this.setState({ fullName: e.target.value });
-    }
 
-    changeEmailHandler = (e) => {
-        this.setState({ emailId: e.target.value });
-    }
-
-    changeBgHandler = (e) => {
-        this.setState({ bg: e.target.value });
-    }
-
-    changephoneNumberHandler = (e) => {
-        this.setState({ phoneNumber: e.target.value });
-    }
-
-    changePdHandler = (e) => {
-        this.setState({ password: e.target.value });
-    }
-
-    changePdcHandler = (e) => {
-        this.setState({ pdc: e.target.value });
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value,
+        })
     }
     
     render() {
@@ -82,48 +68,50 @@ class Signup extends Component {
 
                         <div className="form-group">
                             <label>Full name</label>
-                            <input type="text" className="form-control" placeholder="Full name" maxLength="10"
-                            value={this.state.fullName} onChange={this.changeFullNameHandler}
+                            <input type="text" className="form-control" name="fullName" placeholder="Full name" maxLength="10"
+                            value={this.state.fullName} onChange={this.changeHandler}
                             />
                         </div>
 
                         <div className="form-group">
                             <label>Email address</label>
-                            <input type="email" className="form-control" placeholder="Enter email" 
-                            value={this.state.emailId} onChange={this.changeEmailHandler}
+                            <input type="email" className="form-control" name="emailId" placeholder="Enter email" id="email"
+                            value={this.state.emailId} onChange={this.changeHandler}
                             />
+                            <span id="error1"></span>
                         </div>
 
                         <div className="form-group">
                             <label>Blood group</label>
-                            <input type="text" className="form-control" placeholder="A+ A- B+ B- AB+ AB- O+ O-" 
-                            value={this.state.bg} onChange={this.changeBgHandler}
+                            <input type="text" className="form-control" placeholder="A+ A- B+ B- AB+ AB- O+ O-" name="bg"
+                            value={this.state.bg} onChange={this.changeHandler}
                             />
                         </div>
 
 
                         <div className="form-group">
                             <label>Phone number</label>
-                            <input type="number" className="form-control" placeholder="Phone number" 
-                            value={this.state.phoneNumber} onChange={this.changephoneNumberHandler}
+                            <input type="number" className="form-control" placeholder="Phone number" name="phoneNumber"
+                            value={this.state.phoneNumber} onChange={this.changeHandler}
                             />
                         </div>
 
                         <div className="form-group">
                             <label>Password</label>
-                            <input type="password" className="form-control" placeholder="Enter password" 
-                            value={this.state.password} onChange={this.changePdHandler}
+                            <input type="password" className="form-control" placeholder="Enter password" name="password" id="pass"
+                            value={this.state.password} onChange={this.changeHandler}
                             />
                         </div>
 
                         <div className="form-group">
                             <label>Confirm Password</label>
-                            <input type="password" className="form-control" placeholder="Enter password"
-                            value={this.state.pdc} onChange={this.changePdcHandler}
+                            <input type="password" className="form-control" placeholder="Enter password" name="pdc"
+                            value={this.state.pdc} onChange={this.changeHandler}
                             />
+                            <span id="error2"></span>
                         </div>
 
-                        <button type="submit" className="btn btn-primary btn-block" 
+                        <button type="submit" className="btn btn-primary btn-block" name="button"
                             style= {{ marginLeft:120 }} 
                             onClick={ this.save } 
                             disabled={this.state.emailId.length<1} disabled={this.state.password.length<1} >

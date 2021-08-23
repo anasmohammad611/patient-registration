@@ -31,6 +31,8 @@ class Login extends Component {
         e.preventDefault();
         var email = document.getElementById('email');
         var password = document.getElementById('password');
+        var e1 = document.getElementById("error1");
+        var e2 = document.getElementById("error2");
         console.log(email,password);
         PatientService.getPatientByEmail(this.state.emailId).then(res => {
             console.log(res.data);
@@ -49,13 +51,17 @@ class Login extends Component {
                 });
             }
             else {
-                password.value = ""
-                email.value = ""
-                alert("email is incorrect or password doesn't match");
+                e1.textContent = "check your email";
+                e1.style.color = "red";
+                e2.textContent = "check your password";
+                e2.style.color = "red";
             }
         })
         .catch(function (error) {
-            alert('incorrect details');
+            e1.textContent = "check your email";
+            e1.style.color = "red";
+            e2.textContent = "check your password";
+            e2.style.color = "red";
         });
     }
 
@@ -81,6 +87,7 @@ class Login extends Component {
                             <input id="email" type="email" className="form-control" placeholder="Enter email" 
                             value={this.state.emailId} onChange={this.changeEmailHandler}
                             />
+                            <span id="error1"></span>
                         </div>
 
                         <div className="form-group">
@@ -88,6 +95,7 @@ class Login extends Component {
                             <input id="password" type="password" className="form-control" placeholder="Enter password" 
                             value={this.state.password} onChange={this.changePdHandler}
                             />
+                            <span id="error2"></span>
                         </div>
                         
                         <br />
